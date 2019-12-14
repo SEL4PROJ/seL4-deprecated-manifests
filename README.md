@@ -19,3 +19,38 @@ that are no longer maintained in the main repositories but may still have downst
 dependencies.
 
 Use at your own discretion.
+
+## Checkout and build instructions
+
+These instructions are for checking out and building the projects referred to by the manifests
+in this repository that can still use the deprecated libraries in seL4-deprecated.
+
+### camkes-arm-vm-manifest.xml
+
+This manifest checks out a version of the camkes-arm-vm project that uses libsel4arm-vmm as a virtualisation
+library instead of the newer libsel4vm.
+
+```sh
+repo init -u https://github.com/SEL4PROJ/seL4-deprecated-manifests.git -m camkes-arm-vm-manifest.xml
+repo sync
+(cd projects/vm && git am 0001-Use-deprecated-library-paths.patch)
+mkdir build
+cd build
+../init-build.sh
+ninja
+```
+
+### camkes-vm-examples-manifest.xml
+
+This manifest checks out a version of the camkes-vm-examples project that uses libsel4vmm as a virtualisation
+library instead of the newer libsel4vm.
+
+```sh
+repo init -u https://github.com/SEL4PROJ/seL4-deprecated-manifests.git -m camkes-vm-examples-manifest.xml
+repo sync
+(cd projects/vm && git am 0001-Use-deprecated-libraries.patch)
+mkdir build
+cd build
+../init-build.sh
+ninja
+```
